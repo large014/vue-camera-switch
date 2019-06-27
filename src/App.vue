@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <video v-cameraswitch="cameraType"></video>
+    <div>
+      <button @click="onClick">カメラの切り替え</button>
+    </div>
   </div>
 </template>
 
@@ -12,18 +14,24 @@ export default {
   name: 'app',
   components: {
     HelloWorld
+  },
+  data(){
+    return{
+      cameraType:0,
+    }
+  },
+  methods:{
+    onClick(){
+      this.cameraType = (this.cameraType == 0) ? this.cameraType =1 : this.cameraType = 0;
+    }
   }
 }
 </script>
 
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+video{
+  width: 300px;
+  height: 300px;
 }
 </style>
