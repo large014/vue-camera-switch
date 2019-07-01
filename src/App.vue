@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <video v-cameraswitch="cameraType"></video>
+    <video playsinline muted autoplay v-cameraswitch="cameraType"></video>
     <div>
       <button @click="onClick">カメラの切り替え</button>
     </div>
