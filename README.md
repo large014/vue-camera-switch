@@ -1,5 +1,5 @@
 # vue-camera-switch
-モバイルでのフロント、リアカメラを切り替えるためのVueカスタムディレクティブ
+モバイルでのフロント、リアカメラを切り替えるためのVueカスタムディレクティブ  
 [DEMO] https://large014.github.io/vue-camera-switch/
 
 ## Install
@@ -27,10 +27,8 @@ export default {
     }
   }
 }
-
-"cameraType" の値を切り替えるとカメラがきりかわります
-
 ```
+"cameraType" の値を切り替えるとカメラがきりかわります
 
 ### Compiles and minifies for production
 ```
