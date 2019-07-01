@@ -42,22 +42,18 @@ VueCameraSwitch.install = function (Vue, options) {
         },
         //--- ディレクティブがひも付いている要素から取り除かれた時
         unbind: (el, binding) => {
-            console.log('unbind : = ' + binding);
+            // console.log('unbind : = ' + binding);
         }
     })
 
     function gotDevices(deviceInfos){
         for (let i = 0; i !== deviceInfos.length; ++i) {
             const deviceInfo = deviceInfos[i];
-            // console.log('deviceInfo.kind = ' + deviceInfo.kind);
             if (deviceInfo.kind === 'videoinput') {
-                // let device = deviceInfo.label || `camera`;
                 videoDevices.push(deviceInfo.deviceId)
                 // console.log('deviceid = ' + deviceInfo.deviceId);
             }
         }
-        // console.log(videoDevices);
-        // console.log('----------');
     }
     function handleError() {
         console.log('Error : Unable to get device.');
@@ -66,7 +62,7 @@ VueCameraSwitch.install = function (Vue, options) {
     function start(value) {
         const audioSource = "audioInputSelect.value";
         const videoSource = videoDevices[ value ];
-        console.log('videoSource = ' + videoSource);
+        // console.log('videoSource = ' + videoSource);
 
         //streamの停止
         if (window.stream) {
@@ -76,7 +72,6 @@ VueCameraSwitch.install = function (Vue, options) {
         }
 
         let constraints = {
-            // video: { deviceId: videoSource }
             video: { deviceId: videoSource ? { exact: videoSource } : undefined }
         }
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mediaDevices.getUserMedia || navigator.msGetUserMedia;
@@ -89,7 +84,6 @@ VueCameraSwitch.install = function (Vue, options) {
             window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
             window.stream = stream;
             videoElement.onloadedmetadata = () => {
-                // console.log('videostart');
                 videoElement.play();
                 setTimeout(() => {
                     isReady = false;
