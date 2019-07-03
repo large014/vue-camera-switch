@@ -17,7 +17,6 @@ VueCameraSwitch.install = function (Vue, options) {
         //--- ひも付いている要素が親 Node に挿入された時
         inserted: (el, binding) => {
             // el.focus()
-            // console.log('inserted : = ' + binding.value);
             videoElement = el;
             navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
             if (iOS) {
@@ -32,13 +31,18 @@ VueCameraSwitch.install = function (Vue, options) {
             // console.log('update : = ' + binding.value);
             if (isReady) return;
             isReady = true;
-            if (iOS) {
-                videoIndex = (binding.value == 0) ? videoIndex = 1 : videoIndex = 0;
+            if (binding.value != -1) {
+                if (iOS) {
+                    videoIndex = (binding.value == 0) ? videoIndex = 1 : videoIndex = 0;
+                } else {
+                    videoIndex = binding.value
+                }
+                start(videoIndex);
             } else {
-                videoIndex = binding.value
+                stop();
+                isReady = false;
             }
             // start(binding.value);
-            start(videoIndex);
         },
         //--- ディレクティブがひも付いている要素から取り除かれた時
         unbind: (el, binding) => {
@@ -64,12 +68,13 @@ VueCameraSwitch.install = function (Vue, options) {
         const videoSource = videoDevices[ value ];
         // console.log('videoSource = ' + videoSource);
 
-        //streamの停止
-        if (window.stream) {
-            window.stream.getTracks().forEach(function (track) {
-                track.stop();
-            });
-        }
+        // //streamの停止
+        // if (window.stream) {
+        //     window.stream.getTracks().forEach(function (track) {
+        //         track.stop();
+        //     });
+        // }
+        stop();
 
         let constraints = {
             video: { deviceId: videoSource ? { exact: videoSource } : undefined }
@@ -93,6 +98,16 @@ VueCameraSwitch.install = function (Vue, options) {
         }).catch(function (err) {
             console.log(err);
         });
+    }
+
+    function stop() {
+        // console.log('stop');
+        //streamの停止
+        if (window.stream) {
+            window.stream.getTracks().forEach(function (track) {
+                track.stop();
+            });
+        }
     }
 }
 

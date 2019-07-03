@@ -13,6 +13,11 @@ import VueCameraSwitch from './VueCameraSwitch.js'
 
 Vue.use(VueCameraSwitch, { addIndicators: true })
 
+new Vue({
+  render: h => h(App),
+}).$mount('#app')
+
+//--- videoタグを利用するところで、v-cameraswitchのカスタムディレクティブを設定
 <video playsinline muted autoplay v-cameraswitch="cameraType"></video>
 
 export default {
@@ -22,13 +27,21 @@ export default {
     }
   },
   methods:{
-    onClick(){
+    onSwitch(){
       this.cameraType = (this.cameraType == 0) ? this.cameraType =1 : this.cameraType = 0;
+    },
+    onStop(){
+      this.savecameraType = this.cameraType;
+      this.cameraType = -1;
+    },
+    onPlay(){
+      this.cameraType = this.savecameraType;
     }
   }
 }
 ```
-"cameraType" の値を切り替えるとカメラがきりかわります
+"cameraType" の値を切り替えるとカメラがきりかわります。
+"cameraType" に"-1"を設定すると、カメラがOFFになります。
 
 ### Compiles and minifies for production
 ```
