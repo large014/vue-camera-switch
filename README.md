@@ -40,7 +40,7 @@ export default {
   }
 }
 ```
-"cameraType" の値を切り替えるとカメラがきりかわります。
+"cameraType" の値を切り替えるとカメラがきりかわります。  
 "cameraType" に"-1"を設定すると、カメラがOFFになります。
 
 ### Compiles and minifies for production
